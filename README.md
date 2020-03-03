@@ -1,5 +1,8 @@
 # vue-app
 
+## Customize vue app
+See [Link](https://www.taniarascia.com/getting-started-with-vue/).
+
 ## Project setup
 ```
 npm install
