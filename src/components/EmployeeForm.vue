@@ -8,6 +8,7 @@
       :class="{ 'has-error': submitting && invalidName }"
       @focus="clearStatus"
       @keypress="clearStatus"
+      ref="first"
      />
       <label>Employee Lastname</label>
       <input 
@@ -19,7 +20,9 @@
       <label>Employee Username</label>
       <input type="text" v-model="employee.userName"/>
       <br />
-      <p v-if="error && submitting" class="error-message">
+      <p v-if="error && submitting" class="error-message"
+       :class="{ 'has-error': submitting && invalidUsername }"
+       >
     ❗Please fill out all required fields
   </p>
   <p v-if="success" class="success-message">
@@ -50,12 +53,14 @@
          this.submitting = true
     this.clearStatus()
 
-    if (this.invalidName || this.invalidLastname) {
+    if (this.invalidName || this.invalidLastname || this.invalidUsername) {
       this.error = true
       return
     }
 
     this.$emit('add:employee', this.employee)
+    this.$refs.first.focus()
+
     this.employee = {
       firstName: '',
       lastName: '',
@@ -77,6 +82,10 @@
 
   invalidLastname() {
     return this.employee.lastName === ''
+  },
+
+   invalidUsername() {
+    return this.employee.userName === ''
   },
 },
   }
